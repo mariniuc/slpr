@@ -3,14 +3,15 @@ FROM node:alpine As development
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY package-lock*.json ./
 
 RUN npm install
 
-COPY ../.. .
+COPY . .
 
-RUN npm build
+RUN npm run build
 
-FROM node:alpine As production
+FROM node:alpine as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -18,6 +19,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY package-lock*.json ./
 
 RUN npm instal --prod
 

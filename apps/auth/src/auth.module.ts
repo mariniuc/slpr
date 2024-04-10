@@ -9,6 +9,7 @@ import {ConfigService} from "@nestjs/config";
 import {ConfigModule as NestConfigModule} from "@nestjs/config/dist/config.module";
 import * as Joi from "joi";
 import {APP_PIPE} from "@nestjs/core";
+import {JwtStrategy} from "./strategies/jwt.strategy";
 
 @Module({
   imports: [
@@ -38,10 +39,11 @@ import {APP_PIPE} from "@nestjs/core";
   providers: [
       AuthService,
       LocalStrategy,
+      JwtStrategy,
       {
           provide: APP_PIPE,
           useClass: ValidationPipe,
-      },
+      }
   ],
 })
 export class AuthModule {}

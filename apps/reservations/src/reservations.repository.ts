@@ -1,6 +1,6 @@
 import {InjectModel, Schema} from "@nestjs/mongoose";
-import {Types, Model, FilterQuery, UpdateQuery} from "mongoose";
-import {Logger, NotFoundException} from "@nestjs/common";
+import {Model} from "mongoose";
+import {Logger} from "@nestjs/common";
 import {AbstractRepository} from "@app/common";
 import {ReservationDocument} from "./models/reservation.schema";
 

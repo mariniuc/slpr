@@ -1,8 +1,7 @@
 import {InjectModel, Schema} from "@nestjs/mongoose";
-import {Types, Model, FilterQuery, UpdateQuery} from "mongoose";
-import {Logger, NotFoundException} from "@nestjs/common";
-import {AbstractRepository} from "@app/common";
-import {UserDocument} from "./models/user.schema";
+import {Model} from "mongoose";
+import {Logger} from "@nestjs/common";
+import {AbstractRepository, UserDocument} from "@app/common";
 
 @Schema()
 export class UsersRepository extends AbstractRepository<UserDocument>{
