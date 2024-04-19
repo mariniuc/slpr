@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { PaymentController } from './payment.controller';
 import { PaymentService } from './payment.service';
-import {ConfigModule as NestConfigModule} from "@nestjs/config/dist/config.module";
-import * as Joi from "joi";
-import {LoggerModule, NOTIFICATIONS_SERVICE} from "@app/common";
-import {ClientsModule, Transport} from "@nestjs/microservices";
-import {ConfigService} from "@nestjs/config";
+import { ConfigModule as NestConfigModule } from '@nestjs/config/dist/config.module';
+import * as Joi from 'joi';
+import { LoggerModule, NOTIFICATIONS_SERVICE } from '@app/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [

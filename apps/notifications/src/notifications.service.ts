@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { CreateNotificationDto } from './dto/create-notification.dto';
-import { UpdateNotificationDto } from './dto/update-notification.dto';
+import { ConfigService } from '@nestjs/config';
+import { NotifyEmailDto } from './dto/notify-email.dto';
+import * as nodemailer from 'nodemailer';
 
 @Injectable()
 export class NotificationsService {
-  create(createNotificationDto: CreateNotificationDto) {
-    return 'This action adds a new notification';
-  }
+  constructor(private readonly configService: ConfigService) {}
 
-  findAll() {
-    return `This action returns all notifications`;
-  }
+  private readonly transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      type: 'OAuth2',
+      user: this.configService.get('SMTP_USER'),
+      clientId: this.configService.get('GOOGLE_OAUTH_CLIENT_ID'),
+      clientSecret: this.configService.get('GOOGLE_OAUTH_CLIENT_SECRET'),
+      refreshToken: this.configService.get('GOOGLE_OAUTH_REFRESH_TOKEN'),
+    },
+  });
 
-  findOne(id: number) {
-    return `This action returns a #${id} notification`;
-  }
-
-  update(id: number, updateNotificationDto: UpdateNotificationDto) {
-    return `This action updates a #${id} notification`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} notification`;
+  async notifyEmail({ email, text }: NotifyEmailDto) {
+    console.log('Sending nofication: ' + email + ' and text: ' + text);
+    await this.transporter.sendMail({
+      from: this.configService.get('SMTP_USER'),
+      to: email,
+      subject: 'Slpr Notification',
+      text,
+    });
   }
 }
